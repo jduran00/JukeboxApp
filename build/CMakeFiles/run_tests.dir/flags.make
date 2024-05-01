@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = 
 
-CXX_FLAGS =  -std=c++11 -Wall -Wfatal-errors -std=c++11 -Wall -Wfatal-errors -std=c++11 -Wall -Wfatal-errors -g -DGTEST_HAS_PTHREAD=1
+CXX_FLAGS =  -std=c++11 -Wall -Wfatal-errors -std=c++11 -Wall -Wfatal-errors -std=c++11 -Wall -Wfatal-errors -std=c++11 -Wall -Wfatal-errors -g -DGTEST_HAS_PTHREAD=1
 

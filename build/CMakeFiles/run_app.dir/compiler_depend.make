@@ -203,9 +203,6 @@ CMakeFiles/run_app.dir/app/main.cpp.o: ../app/main.cpp \
   /usr/include/c++/11/bits/atomic_lockfree_defines.h \
   /usr/include/c++/11/backward/auto_ptr.h
 
-CMakeFiles/run_app.dir/code/Jukebox.cpp.o: ../code/Jukebox.cpp \
-  /usr/include/stdc-predef.h
-
 CMakeFiles/run_app.dir/code/Playlist.cpp.o: ../code/Playlist.cpp \
   /usr/include/stdc-predef.h \
   ../code/Playlist.h \
@@ -588,8 +585,6 @@ CMakeFiles/run_app.dir/code/Playlist.cpp.o: ../code/Playlist.cpp \
 /usr/include/c++/11/ostream:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h:
-
-../code/Jukebox.cpp:
 
 /usr/include/c++/11/bits/ostream_insert.h:
 

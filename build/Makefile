@@ -176,33 +176,6 @@ app/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_app.dir/build.make CMakeFiles/run_app.dir/app/main.cpp.s
 .PHONY : app/main.cpp.s
 
-code/Jukebox.o: code/Jukebox.cpp.o
-.PHONY : code/Jukebox.o
-
-# target to build an object file
-code/Jukebox.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/code/Jukebox.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_app.dir/build.make CMakeFiles/run_app.dir/code/Jukebox.cpp.o
-.PHONY : code/Jukebox.cpp.o
-
-code/Jukebox.i: code/Jukebox.cpp.i
-.PHONY : code/Jukebox.i
-
-# target to preprocess a source file
-code/Jukebox.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/code/Jukebox.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_app.dir/build.make CMakeFiles/run_app.dir/code/Jukebox.cpp.i
-.PHONY : code/Jukebox.cpp.i
-
-code/Jukebox.s: code/Jukebox.cpp.s
-.PHONY : code/Jukebox.s
-
-# target to generate assembly for a file
-code/Jukebox.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/code/Jukebox.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_app.dir/build.make CMakeFiles/run_app.dir/code/Jukebox.cpp.s
-.PHONY : code/Jukebox.cpp.s
-
 code/Playlist.o: code/Playlist.cpp.o
 .PHONY : code/Playlist.o
 
@@ -268,9 +241,6 @@ help:
 	@echo "... app/main.o"
 	@echo "... app/main.i"
 	@echo "... app/main.s"
-	@echo "... code/Jukebox.o"
-	@echo "... code/Jukebox.i"
-	@echo "... code/Jukebox.s"
 	@echo "... code/Playlist.o"
 	@echo "... code/Playlist.i"
 	@echo "... code/Playlist.s"

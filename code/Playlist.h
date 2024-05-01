@@ -15,7 +15,7 @@ const int ROCK = 2;
 const int METAL = 3;
 const int BLUES = 4;
 
-
+//structure of the songs
 struct node {
   int genre; // genre as number declared in ****
   node* previous; // points to the previous node, NULL if first node
@@ -26,6 +26,7 @@ struct node {
 };
 
 
+//structure of the playlists containing songs and enteracting with one another.  
 struct list{
     node* first_song;
     int   genre;
@@ -33,9 +34,9 @@ struct list{
     list* next_list;
     };
 
-// Linked List Invariant: following the 'next' links must eventually lead to a
-// NULL reference signifying the end of the list. (E.g. no circular references
-// are allowed.)
+
+
+
 class Playlist {
 public:
   

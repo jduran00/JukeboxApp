@@ -204,10 +204,6 @@ CMakeFiles/run_app.dir/app/main.cpp.o
  /usr/include/c++/11/bits/atomic_lockfree_defines.h
  /usr/include/c++/11/backward/auto_ptr.h
 
-CMakeFiles/run_app.dir/code/Jukebox.cpp.o
- /home/jovyan/Semester 2 2270-2820/2270 Data Structures/JukeboxApp/code/Jukebox.cpp
- /usr/include/stdc-predef.h
-
 CMakeFiles/run_app.dir/code/Playlist.cpp.o
  /home/jovyan/Semester 2 2270-2820/2270 Data Structures/JukeboxApp/code/Playlist.cpp
  /usr/include/stdc-predef.h

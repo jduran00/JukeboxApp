@@ -1,6 +1,4 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/run_tests.dir/code/Jukebox.cpp.o"
-  "CMakeFiles/run_tests.dir/code/Jukebox.cpp.o.d"
   "CMakeFiles/run_tests.dir/code/Playlist.cpp.o"
   "CMakeFiles/run_tests.dir/code/Playlist.cpp.o.d"
   "CMakeFiles/run_tests.dir/tests/test_hw.cpp.o"
