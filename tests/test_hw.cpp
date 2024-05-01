@@ -1,7 +1,7 @@
 // If you change anything in this file, your changes will be ignored
 // in your homework submission.
 // Chekout TEST_F functions bellow to learn what is being tested.
-#include "../code/LinkedList.h"
+#include "../code/Playlist.h"
 #include <gtest/gtest.h>
 
 #include <cmath>
@@ -11,7 +11,7 @@
 
 using namespace std;
 
-class test_LinkedList : public ::testing::Test {
+class test_Playlist : public ::testing::Test {
 protected:
   // This function runs only once before any TEST_F function
   static void SetUpTestCase() {
@@ -58,53 +58,61 @@ protected:
   static double max_grade;
 };
 
-double test_LinkedList::total_grade = 0;
-double test_LinkedList::max_grade = 38;
+double test_Playlist::total_grade = 0;
+double test_Playlist::max_grade = 38;
 
-TEST_F(test_LinkedList, TestInitialization) {
-  LinkedList mylist;
+TEST_F(test_Playlist, TestInitialization) {
+  Playlist mylist;
   ASSERT_FALSE(mylist.get_top()); // expect top to be NULL
   add_points_to_grade(1);
-  node* root = mylist.init_node(42);
+  node* root = mylist.init_node(COUNTRY, 4.50, "Country Song 1");
   ASSERT_TRUE(root); // expect root itself to have a pointer (not NULL)
   add_points_to_grade(1);
-  ASSERT_EQ(42, root->data);
+  ASSERT_EQ(COUNTRY, root->genre);
   add_points_to_grade(1);
   ASSERT_FALSE(root->next); // expect next pointer to be null
   add_points_to_grade(1);
 }
 
-node* build_three_node_list_helper(int one, int two, int three) {
+node* build_three_node_list_helper(int genre1, float length1, string title1, int genre2, float length2, string title2, int genre3, float length3, string title3) {
   node* top(new node);
-  top->data = one;
+  top->genre = genre1;
   top->next = new node;
-  top->next->data = two;
+  top->next->genre = genre2;
   top->next->next = new node;
-  top->next->next->data = three;
+  top->next->next->genre = genre3;
+   top->title = title1;
+  top->next->title  = title2;
+  top->next->next->title  = title3;
+  top->length = length1;
+  top->next->length = length2;
+  top->next->next->length = length3;
   top->next->next->next = (NULL);
   return top;
+
 }
 
-TEST_F(test_LinkedList, TestReport) {
-  LinkedList mylist;
+TEST_F(test_Playlist, TestReport) {
+  Playlist mylist;
 
   string exp("");
   ASSERT_EQ("", mylist.report());
   add_points_to_grade(2);
 
   // create a three node list and test the report result
-  node* top = build_three_node_list_helper(1, 2, 3);
+  node* top = build_three_node_list_helper(0, 4.30, "Country song 1", 0, 4.22, "Country song 2", 0, 3.22, "Country song 3");
   // replace mylist top_ptr_ with this new top
   mylist.set_top(top);
-  ASSERT_EQ("1 2 3 ", mylist.report());
+  ASSERT_EQ("Country song 1, Country song 2, Country song 3, ", mylist.report());
   add_points_to_grade(2);
 }
 
-TEST_F(test_LinkedList, TestAppendData) {
-  LinkedList mylist;
-  node* top = build_three_node_list_helper(42, 74, 51);
-  mylist.set_top(top);
-  mylist.append_data(10);
+TEST_F(test_Playlist, TestAppendsong) {
+  Playlist mylist;
+  node* top = build_three_node_list_helper(0, 4.30, "Country song 1", 0, 4.22, "Country song 2", 0, 3.22, "Contry song 3");
+  mylist.append_list(top);
+  
+  mylist.append_song(0, 3.56, "Country Song 4");
 
   // get a cursor for appended data
   node* cursor = mylist.get_top()->next->next->next;
@@ -114,11 +122,11 @@ TEST_F(test_LinkedList, TestAppendData) {
   ASSERT_FALSE(cursor->next); // expect to be NULL
   add_points_to_grade(1);
 
-  ASSERT_EQ(10, cursor->data);
+  ASSERT_EQ("Country Song 4", cursor->title);
   add_points_to_grade(1);
 
   // try appending one more node
-  mylist.append_data(102);
+  mylist.append_song(0, 3.46, "Country Song 5");
   // update cursor to point to fifth member
   cursor = mylist.get_top()->next->next->next->next;
   ASSERT_TRUE(cursor); // expect not to be NULL
@@ -127,173 +135,42 @@ TEST_F(test_LinkedList, TestAppendData) {
   ASSERT_FALSE(cursor->next); // expect to be NULL
   add_points_to_grade(1);
 
-  ASSERT_EQ(102, cursor->data);
+  ASSERT_EQ(0, cursor->genre);
   add_points_to_grade(1);
 }
 
-TEST_F(test_LinkedList, TestAppendNode) {
+TEST_F(test_Playlist, TestAppendNode) {
 
-  LinkedList mylist;
+  Playlist mylist;
 
   // test appending to empty list
-  node* ap_five = mylist.init_node(5);
-  // add node 15 to an empty list
-  mylist.append(ap_five);
+  node* ap_fave = mylist.init_node(0, 2.30, "Fave country song");
+  // add node fave to an empty list
+  mylist.append(ap_fave);
   // ensure the list has a non-null top
   ASSERT_TRUE(mylist.get_top()); // expect not to be NULL
   add_points_to_grade(1);
   // ensure first element is the ap_nd node by coparing addresses
   // ASSERT_EQ(ap_five.get(), mylist.GetTop().get());
-  ASSERT_EQ(ap_five, mylist.get_top());
+  ASSERT_EQ(ap_fave, mylist.get_top());
   add_points_to_grade(1);
   // ensure first element's value is 15
-  ASSERT_EQ(5, mylist.get_top()->data);
+  ASSERT_EQ(0, mylist.get_top()->genre);
   add_points_to_grade(1);
 
   // insert another node and test
-  node* ap_ten = mylist.init_node(10);
+  node* ap_ten = mylist.init_node(0, 2.33, "Second fave country song");
   mylist.append(ap_ten);
-  ASSERT_EQ(10, mylist.get_top()->next->data);
+  ASSERT_EQ(0, mylist.get_top()->next->genre);
   add_points_to_grade(1);
   ASSERT_FALSE(mylist.get_top()->next->next); // expect to be NULL
   add_points_to_grade(1);
 
   // try appending one more
-  node* ap_nn = mylist.init_node(99);
+  node* ap_nn = mylist.init_node(0, 4.12, "Anotha one");
   mylist.append(ap_nn);
-  ASSERT_EQ(99, mylist.get_top()->next->next->data);
+  ASSERT_EQ("Anotha one", mylist.get_top()->next->next->title);
   add_points_to_grade(1);
   ASSERT_FALSE(mylist.get_top()->next->next->next); // expect to b NULL
   add_points_to_grade(1);
-}
-
-bool expect_all_helper(int vals[], int size, node* top) {
-  bool ret = true;
-  node* cursor = top;
-  for (int i = 0; i < size; i++) {
-    if (cursor == NULL || cursor->data != vals[i]) {
-      if (cursor == NULL) {
-        cout << "Cursor became null." << endl;
-      } else if (cursor->data != vals[i]) {
-        cout << cursor->data << " != " << vals[i] << endl;
-      }
-      ret = false;
-      break;
-    }
-    cursor = cursor->next;
-  }
-  return ret;
-}
-
-TEST_F(test_LinkedList, TestInsertData) {
-  LinkedList mylist;
-
-  node* threenode = build_three_node_list_helper(30, 20, 10);
-  mylist.set_top(threenode); // list is now 30, 20, 10
-
-  int initvals[] = {30, 20, 10};
-  ASSERT_TRUE(expect_all_helper(initvals, 3, mylist.get_top()));
-
-  mylist.insert_data(0, 4); // list is now 4, 30, 20, 10
-  int vals[] = {4, 30, 20, 10};
-  ASSERT_TRUE(expect_all_helper(vals, 4, mylist.get_top()));
-  add_points_to_grade(1);
-
-  mylist.insert_data(2, -78); // list is now 4, 30, -78, 20, 10
-  int vals2[] = {4, 30, -78, 20, 10};
-  ASSERT_TRUE(expect_all_helper(vals2, 5, mylist.get_top()));
-  add_points_to_grade(1);
-
-  mylist.insert_data(5, 99); // list is now 4, 30, -78, 20, 10, 99
-  int vals3[] = {4, 30, -78, 20, 10, 99};
-  ASSERT_TRUE(expect_all_helper(vals3, 6, mylist.get_top()));
-  add_points_to_grade(1);
-}
-
-TEST_F(test_LinkedList, TestInsertNode) {
-  LinkedList mylist;
-
-  node* threenode = build_three_node_list_helper(7, 98, -34);
-  mylist.set_top(threenode);
-
-  // add at beginning
-  node* nd_five = mylist.init_node(5);
-  mylist.insert(0, nd_five);
-  int vals[] = {5, 7, 98, -34};
-  ASSERT_TRUE(expect_all_helper(vals, 4, mylist.get_top()));
-  add_points_to_grade(1);
-
-  // add in middle
-  node* nd_middle = mylist.init_node(20);
-  mylist.insert(2, nd_middle);
-  int vals2[] = {5, 7, 20, 98, -34};
-  ASSERT_TRUE(expect_all_helper(vals2, 5, mylist.get_top()));
-  add_points_to_grade(1);
-
-  // add at end
-  node* nd_ending = mylist.init_node(800);
-  mylist.insert(5, nd_ending);
-  int vals3[] = {5, 7, 20, 98, -34, 800};
-  ASSERT_TRUE(expect_all_helper(vals3, 6, mylist.get_top()));
-  add_points_to_grade(1);
-}
-
-TEST_F(test_LinkedList, TestRemove) {
-  LinkedList mylist;
-
-  node* threenode = build_three_node_list_helper(7, 86, 210);
-  mylist.set_top(threenode);
-
-  int vals[] = {7, 86, 210};
-  ASSERT_TRUE(expect_all_helper(vals, 3, mylist.get_top()));
-
-  // remove start
-  mylist.remove(0);
-  int vals2[] = {86, 210};
-  ASSERT_TRUE(expect_all_helper(vals2, 2, mylist.get_top()));
-  add_points_to_grade(1);
-
-  // reset and remove mid
-  threenode = build_three_node_list_helper(7, 86, 210);
-  mylist.set_top(threenode);
-  mylist.remove(1);
-  int vals3[] = {7, 210};
-  ASSERT_TRUE(expect_all_helper(vals3, 2, mylist.get_top()));
-  add_points_to_grade(1);
-
-  // reset and remove end
-  threenode = build_three_node_list_helper(7, 86, 210);
-  mylist.set_top(threenode);
-  mylist.remove(2);
-  int vals4[] = {7, 86};
-  ASSERT_TRUE(expect_all_helper(vals4, 2, mylist.get_top()));
-  add_points_to_grade(1);
-}
-
-TEST_F(test_LinkedList, TestSize) {
-  LinkedList mylist;
-  ASSERT_EQ(0, mylist.size());
-  add_points_to_grade(2);
-
-  node* threenode = build_three_node_list_helper(76, 12, 423);
-  mylist.set_top(threenode);
-  ASSERT_EQ(3, mylist.size());
-  add_points_to_grade(2);
-}
-
-TEST_F(test_LinkedList, TestContains) {
-  LinkedList mylist;
-  node* threenode = build_three_node_list_helper(7, 0, -210);
-  mylist.set_top(threenode);
-
-  ASSERT_TRUE(mylist.contains(-210));
-  add_points_to_grade(0.8);
-  ASSERT_TRUE(mylist.contains(0));
-  add_points_to_grade(0.8);
-  ASSERT_TRUE(mylist.contains(7));
-  add_points_to_grade(0.8);
-  ASSERT_FALSE(mylist.contains(12));
-  add_points_to_grade(0.8);
-  ASSERT_FALSE(mylist.contains(-120));
-  add_points_to_grade(0.8);
 }

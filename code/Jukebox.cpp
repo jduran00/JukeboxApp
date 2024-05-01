@@ -1,6 +1,16 @@
-{
- "cells": [],
- "metadata": {},
- "nbformat": 4,
- "nbformat_minor": 5
-}
+//#include "Jukebox.h"
+//#include <queue> 
+//#include <iostream>
+//#include <sstream>
+
+//using namespace std;
+
+//Jukebox::Jukebox() {
+// top_pointer = 0//get first song in country list
+//}
+
+//Jukebox::~Jukebox() {
+ 
+//}
+
+//void getPlaylist();
