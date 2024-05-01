@@ -48,19 +48,6 @@ public:
   // Creates a new node structure from heap memory. Both pointers are NULL, and genre is 0, played is false and time is NULL
   node* init_node(int genre, float length, string title);
 
- //Creates new playlist from heap memory
-  list* init_list (node* new_node);
-
-
-  list* get_list (int genre); //find the right playlist for the genre
-    
-    
-    
-
-void append_list (node* node); ///adds songs to lists
-
-string report();//returns a list of the titles and lengths of songs in playlist
-
   // AppendData adds a song to the end of the list pointed to by top. The
   // resulting list is one element longer, and the newly appended node has the
   // given data value. Creates a song from these elements and appends using append func
@@ -69,10 +56,15 @@ string report();//returns a list of the titles and lengths of songs in playlist
   //adds new song
   void append(node* new_node);
 
+  ////returns a list of the titles and lengths of songs in playlist
+  string report();
+
+
   // InsertData inserts a new node that contains the given data value, so the
   // new node occupies the offset indicated. Any nodes that were already in the
   // list at that offset and beyond are shifted down by one. Inserts song at particular spot   // in playlist
   void insert_song(int offset, int genre, float length, string title);
+
 
   // This is the same as insert_data, except we're inserting a node, rather than
   // a value. Inserts song at particular spot in playlist. (Like append and append_song)
@@ -86,36 +78,51 @@ string report();//returns a list of the titles and lengths of songs in playlist
   // Returns the number of songs in playlist an empty list
   // has size 0, a list with one item has size 1, etc.
   int size();
+ 
+ 
+ //Creates new playlist from heap memory
+  list* init_list (node* new_node);
 
-
+ //find the right playlist for the genre
+  list* get_list (int genre); 
+    
   // gets top of list
-  node* get_top_of_list(int genre);
+  node* get_top_of_list(int genre);  
+    
+  ///adds songs to lists
+  void append_list (node* node); 
+
+  //marked true if paused
+  bool paused();
 
 
-  // This function is implemented for you. Returns the top pointer.
+  // Returns the top pointer.
   node* get_top();
 
-  // This is implemented for you. It sets a given pointer as the top pointer.
+  //  It sets a given pointer as the top pointer.
   void set_top(node* top_ptr);
 
   // You can declare more public member variables and member functions here if
   // you need them. Implement them in the cpp file.
-
   list* get_first_list(); //returns first list 
 
+ //returns the first track of previous playlist
   node* get_first_of_previous(node* current);
 
+  //returns the next track in current playlist
   node* get_next_track(node* current);
 
+  //returns the first track of the next playlit
   node*get_first_of_next(node* current);
 
+
+  //rearrange playlist in the desired order
   void rearrange_playlist ();
 
 private:
   node* top_ptr_;
   list* top_list_;
-  // you can add add more private member variables and member functions here if
-  // you need
+  
 };
 
 #endif // PLAYLIST_H__

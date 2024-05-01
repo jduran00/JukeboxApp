@@ -40,20 +40,17 @@ void Playlist::append_song(int genre, float length, string title) {
 //adds next song in playlist, linking the previous node
 void Playlist::append(node* new_node) {
   node* cursor = get_top();
-  node* previous = nullptr;
   if( cursor == nullptr){
     top_ptr_ = new_node;
     return;
   }
   while (cursor->next != nullptr){
-    previous = cursor;
-
+    cursor->next->previous = cursor;
     cursor = cursor -> next;
-    //cursor ->next->previous = previous;
   }
-   
-   //cursor -> next = new_node;
-    
+   node* temp = cursor;
+   cursor -> next = new_node;
+   cursor ->previous = temp; 
 }
 
 //returns song list 
@@ -65,7 +62,6 @@ string Playlist::report() {
   }
   while (cursor != nullptr){
     auto next_title = cursor->title;
-    //string length = to_string(length); //time? "(" + length + ")" +
     ret = ret + next_title +  ", ";
     cursor = cursor -> next;
   }
@@ -73,7 +69,7 @@ string Playlist::report() {
 }
 
 
-
+//inserts new song into list
 void Playlist::insert_song(int offset, int genre, float length, string title) {
   int offset1 = offset;
   auto new_node = init_node(genre, length, title);
@@ -81,6 +77,7 @@ void Playlist::insert_song(int offset, int genre, float length, string title) {
   
 }
 
+//helps insert song into new list
 void Playlist::insert(int offset, node* new_node) {
   node* cursor = top_ptr_;
     
@@ -112,6 +109,8 @@ void Playlist::insert(int offset, node* new_node) {
 
 }
 
+
+///removes song from play list
 void Playlist::remove(string title) {
   node* cursor = top_ptr_;
   node* previous = nullptr;
@@ -142,6 +141,7 @@ void Playlist::remove(string title) {
    }
 }
 
+//returns size of playlist
 int Playlist::size() {
   int ret = 0;
   node* cursor = top_ptr_;
@@ -154,6 +154,8 @@ int Playlist::size() {
   return ret;
 }
 
+
+//initilizes list 
 list* Playlist::init_list (node* new_node){
    int genre_temp = new_node->genre;
    list* ret(new list);
@@ -165,6 +167,7 @@ list* Playlist::init_list (node* new_node){
    return ret;
 }
 
+//gets list using genre, good helper
 list* Playlist::get_list (int genre){
   list* cursor = top_list_;
   if (cursor == NULL){
@@ -180,6 +183,7 @@ list* Playlist::get_list (int genre){
   return NULL;
 }
 
+//gets song-node on the top of a genre specified playlist
 node* Playlist::get_top_of_list(int genre) { 
   list* cursor = top_list_;
   if (cursor == NULL){
@@ -199,7 +203,7 @@ node* Playlist::get_top_of_list(int genre) {
    return NULL;
    }
 
-
+   //adds new playlist 
   void Playlist::append_list (node* node){
   list* cursor = top_list_;
   int genre_temp = node->genre;
@@ -229,10 +233,19 @@ list* Playlist::get_first_list() { return top_list_; }
 // It sets a given pointer as the top pointer
 void Playlist::set_top(node* top_ptr) { top_ptr_ = top_ptr; }
 
+
+//see if played or paused
+bool Playlist::paused(){
+  return true;
+}
+
+
+//returns next track
 node* Playlist::get_next_track(node* current){
   return current->next;
 }
 
+//returns the first track of previous playlist
 node* Playlist::get_first_of_previous(node* current){
   list* current_list = get_list(current->genre);
   if (current_list->previous_list != NULL){
@@ -240,6 +253,7 @@ node* Playlist::get_first_of_previous(node* current){
   return current_list->first_song; //if current is first playlist
 }
 
+//returns the first node of next playlist
 node* Playlist::get_first_of_next(node* current){
   list* current_list = get_list(current->genre);
   if (current_list->next_list != NULL){
@@ -247,6 +261,7 @@ node* Playlist::get_first_of_next(node* current){
   return current_list->first_song; //if current is first playlist
 }
 
+//rearrange playlist in desired order 
 void Playlist::rearrange_playlist (){
 string Order;
 cout << "Enter desired order for playlists as numbers; Country = 0, Pop = 1, Rock = 2, Metal = 3, Blues =4";
@@ -268,4 +283,5 @@ for ( unsigned i = 0; i < Order.size();i++){
     }
 }
 }
+
 
