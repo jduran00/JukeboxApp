@@ -113,8 +113,11 @@ public:
   //returns the next track in current playlist
   node* get_next_track(node* current);
 
-  //returns the first track of the next playlit
+  //returns the first track of the next playlist
   node*get_first_of_next(node* current);
+
+  //returns the first track of first playlist
+  node* get_first_of_first(node* current);
 
 
   //rearrange playlist in the desired order

@@ -261,6 +261,14 @@ node* Playlist::get_first_of_next(node* current){
   return current_list->first_song; //if current is first playlist
 }
 
+node* Playlist::get_first_of_first(node* current){
+  list* current_list = get_list(current->genre); 
+  while(current_list->previous_list != NULL){
+    current_list = current_list-> previous_list;
+  }
+  return current_list->first_song;
+}
+
 //rearrange playlist in desired order 
 void Playlist::rearrange_playlist (){
 string Order;
